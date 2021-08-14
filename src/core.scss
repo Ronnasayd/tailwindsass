@@ -1,0 +1,160 @@
+@import "./variables";
+@import "./mixins";
+
+@include createWithMedias("font-bold") {
+  font-weight: bold;
+}
+@include createWithMedias("w-full") {
+  width: 100%;
+}
+@include createWithMedias("h-full") {
+  height: 100%;
+}
+@include createWithMedias("flex-1") {
+  flex: 1;
+}
+@include createWithMedias("flex-auto") {
+  flex: auto;
+}
+@include createWithMedias("flex-initial") {
+  flex: initial;
+}
+.w-screen {
+  width: 100vw;
+}
+.h-screen {
+  height: 100vh;
+}
+
+@each $key1, $value1 in map-get($config, "justifyContent") {
+  $inlineName: "l-inline-#{$key1}";
+  $stackName: "l-stack-#{$key1}";
+
+  @include createWithMedias($inlineName) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: $value1;
+  }
+  @include createWithMedias($stackName) {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: $value1;
+  }
+
+  @each $key2, $value2 in map-get($config, "alignItems") {
+    $fullName: "l-inline-#{$key1}-#{$key2}";
+    @include createWithMedias($fullName) {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: $value1;
+      align-items: $value2;
+    }
+  }
+}
+
+@each $denominator in map-get($config, "widthSizes") {
+  @for $numerator from 1 through $denominator {
+    @if $numerator != $denominator {
+      $widthName: "w-#{$numerator}\\/#{$denominator}";
+      $heightName: "w-#{$numerator}\\/#{$denominator}";
+      @include createWithMedias($widthName) {
+        width: $numerator/$denominator * 100%;
+      }
+      @include createWithMedias($widthName) {
+        height: $numerator/$denominator * 100%;
+      }
+    }
+  }
+}
+
+@for $value from 0 through 100 {
+  @include createWithMedias("w-#{$value}") {
+    width: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("h-#{$value}") {
+    height: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("gap-#{$value}") {
+    gap: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("gap-x-#{$value}") {
+    column-gap: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("gap-y-#{$value}") {
+    row-gap: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("m-#{$value}") {
+    margin: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("mx-#{$value}") {
+    margin-left: $value * (4/16) * 1rem;
+    margin-right: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("my-#{$value}") {
+    margin-top: $value * (4/16) * 1rem;
+    margin-bottom: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("mt-#{$value}") {
+    margin-top: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("mb-#{$value}") {
+    margin-bottom: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("ml-#{$value}") {
+    margin-left: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("mr-#{$value}") {
+    margin-right: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("p-#{$value}") {
+    padding: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("px-#{$value}") {
+    padding-left: $value * (4/16) * 1rem;
+    padding-right: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("py-#{$value}") {
+    padding-top: $value * (4/16) * 1rem;
+    padding-bottom: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("pt-#{$value}") {
+    padding-top: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("pb-#{$value}") {
+    padding-bottom: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("pl-#{$value}") {
+    padding-left: $value * (4/16) * 1rem;
+  }
+  @include createWithMedias("pr-#{$value}") {
+    padding-right: $value * (4/16) * 1rem;
+  }
+}
+
+@each $color, $value in map-get($config, "colors") {
+  @include createWithMedias("bg-#{$color}") {
+    background-color: $value;
+  }
+  @include createWithMedias("text-#{$color}") {
+    color: $value;
+  }
+}
+
+@each $color, $value in map-get($config, "materialColors") {
+  @include createWithMedias("bg-#{$color}") {
+    background-color: $value;
+  }
+  @include createWithMedias("text-#{$color}") {
+    color: $value;
+  }
+}
+
+@each $color, $value in colorMap(map-get($config, "materialColors"), 10) {
+  @include createWithMedias("bg-#{$color}") {
+    background-color: $value;
+  }
+  @include createWithMedias("text-#{$color}") {
+    color: $value;
+  }
+}
