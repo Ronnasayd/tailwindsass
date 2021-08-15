@@ -2,12 +2,13 @@
 @import "./functions";
 
 @mixin createWithMedias($className) {
-  .#{$className} {
+  $prefix: map-get($config, "prefix");
+  .#{$prefix}#{$className} {
     @content;
   }
   @each $key, $value in map-get($config, "screens") {
     @media screen and (min-width: $value) {
-      .#{$key}\:#{$className} {
+      .#{$key}\:#{$prefix}#{$className} {
         @content;
       }
     }

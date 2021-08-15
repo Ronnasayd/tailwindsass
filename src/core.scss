@@ -1,6 +1,19 @@
 @import "./variables";
 @import "./mixins";
 
+@include createWithMedias("text-left") {
+  text-align: left;
+}
+@include createWithMedias("text-right") {
+  text-align: right;
+}
+@include createWithMedias("text-center") {
+  text-align: center;
+}
+@include createWithMedias("text-justify") {
+  text-align: justify;
+}
+
 @include createWithMedias("font-bold") {
   font-weight: bold;
 }
@@ -57,11 +70,11 @@
   @for $numerator from 1 through $denominator {
     @if $numerator != $denominator {
       $widthName: "w-#{$numerator}\\/#{$denominator}";
-      $heightName: "w-#{$numerator}\\/#{$denominator}";
+      $heightName: "h-#{$numerator}\\/#{$denominator}";
       @include createWithMedias($widthName) {
         width: $numerator/$denominator * 100%;
       }
-      @include createWithMedias($widthName) {
+      @include createWithMedias($heightName) {
         height: $numerator/$denominator * 100%;
       }
     }
